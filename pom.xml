@@ -1,0 +1,56 @@
+<project>
+<modelVersion>4.0.0</modelVersion>
+ <name>Maven Default Project</name>
+  <groupId>com.cloudsense.cssfmd</groupId>
+  <artifactId>Phantom</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <packaging>crx</packaging>
+  
+  <pluginRepositories>
+    <pluginRepository>
+		<id>crx</id>
+      <name>google code crx</name>
+      <url>https://code.google.com/p/crx-maven-plugin/source/browse/maven2/com/google/code</url>
+      <layout>default</layout>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+	 </pluginRepository>
+  </pluginRepositories>
+  <build>
+    <plugins>
+
+    <!-- use the war plugin to stage the crx files -->
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-war-plugin</artifactId>
+      <executions>
+        <execution>
+          <id>stage-crx</id>
+          <phase>prepare-package</phase>
+          <goals>
+            <goal>exploded</goal>
+          </goals>
+        </execution>
+      </executions>
+    </plugin>
+
+    <!-- the crx is created in maven's package phase -->
+    <plugin>
+      <groupId>com.btmatthews.maven.plugins</groupId>
+      <artifactId>crx-maven-plugin</artifactId>
+      <version>1.1.0</version>
+      <extensions>true</extensions>
+      <configuration>
+        <pemKey>key.pem</pemKey>
+        <pemCert>mycert.pem</pemCert>
+      </configuration>
+    </plugin>
+
+    
+    </plugins>
+  </build>
+</project>
